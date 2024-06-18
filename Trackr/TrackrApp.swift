@@ -11,8 +11,8 @@ import SwiftUI
 struct TrackrApp: App {
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                ContentView()
+            NavigationStack {
+                ContentView(location: Location.example)
             }
         }
     }
