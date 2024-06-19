@@ -39,6 +39,6 @@ struct ContentView: View {
 
 #Preview {
     NavigationStack {
-        ContentView(location: Location.example)
+        ContentView(location: LocationsList().primary)
     }
 }

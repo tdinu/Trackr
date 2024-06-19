@@ -9,8 +9,11 @@ import Foundation
 
 class LocationsList: ObservableObject {
     let places: [Location]
+    var primary: Location {
+        places[0]
+    }
     
-    init(places: [Location]) {
+    init() {
         // self.places = places
         // need to make Location Decodable, otherwise decode will complain
         let url = Bundle.main.url(forResource: "locations", withExtension: "json")!
