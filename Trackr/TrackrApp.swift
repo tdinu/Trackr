@@ -11,8 +11,22 @@ import SwiftUI
 struct TrackrApp: App {
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                ContentView(location: Location.example)
+            TabView {
+                NavigationStack {
+                    ContentView(location: LocationsList().primary)
+                }
+                .tabItem {
+                    Image(systemName: "airplane.circle.fill")
+                    Text("Discover")
+                }
+                
+                NavigationStack {
+                    WorldView()
+                }
+                .tabItem {
+                    Image(systemName: "star.fill")
+                    Text("Location")
+                }
             }
         }
     }
