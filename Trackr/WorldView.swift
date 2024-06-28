@@ -28,12 +28,12 @@ struct WorldView: View {
     
     var body: some View {
         Map(initialPosition: .region(MKCoordinateRegion(center: coordinate, span: (MKCoordinateSpan(latitudeDelta: 30, longitudeDelta: 30))))) {
-            ForEach(locations.places) { 
-                place in
-                Annotation(place.name, coordinate: CLLocationCoordinate2D(
-                    latitude: place.latitude,
-                    longitude: place.longitude
-                )) {
+            ForEach(locations.places) { place in
+            Annotation(place.name, coordinate: CLLocationCoordinate2D(
+                latitude: place.latitude,
+                longitude: place.longitude
+            )) {
+                NavigationLink(destination: ContentView(location: place)) {
                     Image(place.country)
                         .resizable()
                         .cornerRadius(5)
@@ -41,6 +41,7 @@ struct WorldView: View {
                         .shadow(radius: 3)
                     }
                 }
+            }
         }
     }
 }
