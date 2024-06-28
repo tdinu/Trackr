@@ -29,6 +29,13 @@ struct TrackrApp: App {
                     Image(systemName: "star.fill")
                     Text("Location")
                 }
+                NavigationStack {
+                    TipsView()
+                }
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("Tips")
+                }
             }
             .environmentObject(locations)
         }
