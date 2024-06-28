@@ -9,6 +9,7 @@ import MapKit
 import SwiftUI
 
 struct WorldView: View {
+    @EnvironmentObject var locations: LocationsList
     @State private var region = MKCoordinateRegion()
 
     let initialPosition: MapCameraPosition = {
@@ -18,21 +19,33 @@ struct WorldView: View {
         return .region(region)
     }()
     
+    var coordinate: CLLocationCoordinate2D {
+            CLLocationCoordinate2D(
+                latitude: 52.123634,
+                longitude: 5.183452
+            )
+        }
+    
     var body: some View {
-        Map(initialPosition: initialPosition)
-            .onMapCameraChange(frequency: .continuous) { context in
-                region = context.region
-            }
+        Map(initialPosition: .region(MKCoordinateRegion(center: coordinate, span: (MKCoordinateSpan(latitudeDelta: 30, longitudeDelta: 30))))) {
+            ForEach(locations.places) { 
+                place in
+                Annotation(place.name, coordinate: CLLocationCoordinate2D(
+                    latitude: place.latitude,
+                    longitude: place.longitude
+                )) {
+                    Image(place.country)
+                        .resizable()
+                        .cornerRadius(5)
+                        .frame(width: 65, height: 35)
+                        .shadow(radius: 3)
+                    }
+                }
+        }
     }
-    /* @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 52.123634, longitude: 5.183452), span: MKCoordinateSpan(latitudeDelta: 40, longitudeDelta: 40))
-    
-    
-    var body: some View {
-        Map(coordinateRegion: $region)
-            .navigationTitle("Locations")
-    } */
 }
 
 #Preview {
     WorldView()
+        .environmentObject(LocationsList())
 }
